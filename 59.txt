@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n, k, m[10005] = { 0 }, id, isshu = 1;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &id);
+		m[id] = i + 1;
+	}
+	scanf("%d", &k);
+	for (int i = 0; i < k; i++) {
+		isshu = 1;//注意初始化
+		scanf("%d", &id);
+		printf("%04d: ", id);
+		if (m[id] == 1) {
+			printf("Mystery Award\n");
+			m[id] = -1;//打多一个=号也是醉了
+			continue;
+		}
+		else if (m[id] == -1) {
+			printf("Checked\n");
+			continue;
+		}
+		else if (m[id] == 0) {
+			printf("Are you kidding?\n");
+			continue;
+		}
+		for (int j = 2; j*j <= m[id]; j++) {
+			if (m[id] % j == 0) {
+				isshu = 0;
+				break;
+			}
+		}
+		if (isshu == 1) {
+			printf("Minion\n");
+			m[id] = -1;
+		}
+		else {
+			printf("Chocolate\n");
+			m[id] = -1;//巧克力也不能多吃。。。
+		}
+	}
+	return 0;
+}

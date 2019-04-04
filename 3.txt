@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+
+
+int main() {
+	int n;
+
+	char s[105];
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		int bp = 0, ba = 0, bt = 0;//是否出现P A T
+		int w = 0; //错误字符串标准
+		int af = 0, as = 0, an = 0;//A出现次数
+		scanf("%s", s);
+		for (int j = 0; j < strlen(s); j++) {
+			if (s[j] == 'P') {
+				if(bp == 0)
+					bp = 1;
+				else {
+					w = 1;
+					break;
+				}
+			}
+			else if (s[j] == 'A') {
+				if (bp == 0) {
+					af++;
+				}
+				else if (bp == 1 && bt == 0) {
+					as++;
+					ba = 1;
+				}
+				else if (bt == 1) {
+					an++;
+				}
+			}
+			else if (s[j] == 'T') {
+				if (ba != 1 || bt != 0) {
+					w = 1;
+					break;
+				}
+				bt = 1;
+			}
+			else {
+				w = 1;
+				break;
+			}
+		}
+		if (an != af * as || bt != 1) {
+			w = 1;
+		}
+		if (w == 1)
+			printf("NO\n");
+		else
+			printf("YES\n");
+	}
+	return 0;
+}

@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+	int n;
+	char a, b;
+	int c[3] = {0};//胜负平次数
+	char wa, wb;//赢最多的手式
+	int wanum = 0, wbnum = 0, wahand[3] = { 0 }, wbhand[3] = { 0 };
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		getchar();
+		scanf("%c %c",&a, &b);
+		
+		if  (a == 'J' && b == 'B')  {
+			wahand[0]++;
+			c[1]++;
+		}
+		else if (a == 'C' && b == 'J')  {
+			wahand[1]++;
+			c[1]++;
+		}
+		else if  (a == 'B' && b == 'C') {
+			wahand[2]++;
+			c[1]++;
+		}
+		else if (a == b) {
+			c[0]++;
+		}
+		else if (b == 'J' && a == 'B') {
+			wbhand[0]++;
+			c[2]++;
+		}
+		else if (b == 'C' && a == 'J') {
+			wbhand[1]++;
+			c[2]++;
+		}
+		else if (b == 'B' && a == 'C') {
+			wbhand[2]++;
+			c[2]++;
+		}
+	}
+	printf("%d %d %d\n", c[1], c[0], c[2]);
+	printf("%d %d %d\n", c[2], c[0], c[1]);
+	if (wahand[2] >= wahand[1] && wahand[2] >= wahand[0]) {
+		printf("B");
+	}
+	else if (wahand[1] >= wahand[2] && wahand[1] >= wahand[0]) {
+		printf("C");
+	}
+	else if (wahand[0] >= wahand[1] && wahand[0] >= wahand[2]) {
+		printf("J");
+	}
+	printf(" ");
+	if (wbhand[2] >= wbhand[1] && wbhand[2] >= wbhand[0]) {
+		printf("B");
+	}
+	else if (wbhand[1] >= wbhand[2] && wbhand[1] >= wbhand[0]) {
+		printf("C");
+	}
+	else if (wbhand[0] >= wbhand[1] && wbhand[0] >= wbhand[2]) {
+		printf("J");
+	}
+	printf("\n");
+	return 0;
+}

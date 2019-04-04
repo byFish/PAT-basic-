@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n, m[1005] = {0};
+	int dnum, pnum, score;
+	int maxnum = 0, maxteam;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d-%d %d", &dnum, &pnum, &score);
+		m[dnum] += score;
+		if (m[dnum] > maxnum) {
+			maxnum = m[dnum];
+			maxteam = dnum;
+		}
+	}
+	printf("%d %d\n", maxteam, maxnum);
+	return 0;
+}

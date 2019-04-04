@@ -1,0 +1,85 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+
+int main() {
+	char a[30], b[30], c[30], d[30];
+	int maxlast, num, ispuls = 0, cnum, puls = 0;
+	scanf("%s%s%s", c, a, b);
+	int alast = strlen(a) - 1;
+	int blast = strlen(b) - 1;
+	int clast = strlen(c) - 1;
+	if (alast > blast) {
+		maxlast = alast;
+	}
+	else
+		maxlast = blast;
+	d[maxlast + 1] = '\0';
+	while (1) {
+		ispuls = 0;
+		if (alast >= 0 && blast >= 0)
+			num = (a[alast] - '0') + (b[blast] - '0');
+		else if (alast >= 0) {
+			num = a[alast] - '0';
+		}
+		else if (blast >= 0) {
+			num = b[blast] - '0';
+		}
+		else
+			num = 0;
+		if (c[clast] - '0' == 0) {
+			cnum = 10;
+		}
+		else
+			cnum = c[clast] - '0';
+		if (num + puls >= cnum) {
+			num -= cnum;
+			ispuls = 1;
+		}
+		d[maxlast] = num + puls + '0';
+		puls = ispuls;
+		maxlast--;
+		alast--;
+		blast--;
+		clast--;
+		if (maxlast < 0)
+			break;
+	}
+	int g = 0, isz = 0;
+	if (puls == 1)
+		printf("1");
+	else {
+	while(1){
+		if (d[g] == '\0' && isz == 0) {//注意等于零的情况
+			printf("0\n");
+			return 0;
+		}
+		if (d[g] != '0') {
+			isz = 1;
+			break;
+		}
+		g++;
+	}
+	}
+	int k = 0;
+	int isnull = 1;
+
+
+	while (1) {
+		if (puls == 0 && isnull == 1 && d[k] == '0') {
+			k++;
+			continue;
+		}
+		else {
+			printf("%c", d[k]);
+			isnull = 0;
+		}
+		k++;
+		if (d[k] == '\0')
+			break;
+	}
+	return 0;
+}

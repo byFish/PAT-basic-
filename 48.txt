@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	char a[105], b[105], c[105], b0;
+	int isji = 0, max;
+	int sum;
+	scanf("%s", a);
+	scanf("%s", b);
+
+	int j = strlen(a) - 1;
+	int i = strlen(b) - 1;
+	if (i > j) //注意题目虽然没有提到，但是b如果比a小，b前面不是不用输出，而是零。
+		max = i;
+	else
+		max = j;
+	c[max+1] = '\0';
+	for (int i = strlen(b) - 1; max >= 0; i--, j--, max--) {
+		sum = 0;
+		if (j < 0) {
+			c[i] = b[i];
+			continue;
+		}
+		if (i < 0) {
+			b0 = '0';
+		}
+		else
+			b0 = b[i];
+		if (isji == 0) {
+			sum = (a[j] - '0') + (b0 - '0');
+			sum = sum % 13;
+			if (sum < 10) {
+				c[max] = sum + '0';
+			}
+			else if (sum == 10)
+				c[max] = 'J';
+			else if (sum == 11)
+				c[max] = 'Q';
+			else if (sum == 12)
+				c[max] = 'K';
+			isji = 1;
+		}
+		else {
+			sum = (b0 - '0') - (a[j] - '0');
+			if (sum < 0)
+				sum += 10;
+			c[max] = sum + '0';
+			isji = 0;
+		}
+
+	}
+	printf("%s\n", c);
+	return 0;
+}

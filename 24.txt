@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+
+int main() {
+	char a[50000];
+	int zsum = 0, j = 0;//指数
+	int potnum = 0;
+	char zsys = 0;
+	scanf("%s", a);
+	for (int i = strlen(a) - 1; i >= 0; i--,j++) {
+		if (a[i] == '+' || a[i] == '-') {
+			zsys = a[i];
+			break;
+		}
+		zsum += (a[i] - '0') * pow(10, j);
+	}
+	if (zsys == '-') {
+		
+		if (a[0] == '-')
+			printf("-");
+		printf("0.");
+		for (int i = 0; i < zsum - 1; i++) {
+			printf("0");
+		}
+		for (int i = 1; i < strlen(a); i++) {
+			if (a[i] == '.')
+				continue;
+			else if (a[i] == 'E')
+				break;
+			printf("%c", a[i]);
+		}
+	}
+	else {
+		if (a[0] == '-')
+			printf("-");
+		for (int i = 1; i < strlen(a); i++) {
+			if (a[i] == '.')
+				continue;
+			else if (a[i] == 'E') {
+				for (int h = 0; h <= (zsum - potnum); h++) {
+					printf("0");
+				}
+				break;
+			}
+			if (zsum == potnum - 1) {//注意当点后面没有数时不能输出
+				printf(".");
+			}
+			printf("%c", a[i]);			
+			potnum++;
+			
+		}
+	}
+	return 0;
+}

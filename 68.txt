@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int a[105][105], b[105][105] = {0};
+	int n, m, tol;
+	int x = 0, y = 0, tolnum = 0, colornum;
+	scanf("%d%d%d", &n, &m, &tol);
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			scanf("%d", &a[i][j]);
+			if (i != 0 ) {
+				if(a[i - 1][j] - a[i][j] > tol)
+					b[i][j] = 1;
+				else if (a[i - 1][j] - a[i][j] < -tol)
+					b[i - 1][j] = 1;
+				else {
+					b[i - 1][j] = 1;
+					b[i][j] = 1;
+				}
+			}
+			if (j != 0 ) {
+				if(a[i][j - 1] - a[i][j] > tol)
+					b[i][j] = 1;
+				else if(a[i][j - 1] - a[i][j] < -tol)
+					b[i][j - 1] = 1;
+				else {
+					b[i][j - 1] = 1;
+					b[i][j] = 1;
+				}
+			}
+			if (i != 0 && j != 0 ) {
+				if(a[i - 1][j - 1] - a[i][j] > tol)
+					b[i][j] = 1;
+				else if(a[i - 1][j - 1] - a[i][j] < -tol)
+					b[i - 1][j - 1] = 1;
+				else {
+					b[i - 1][j - 1] = 1;
+					b[i][j] = 1;
+				}
+			}
+			if (i != 0 && j != 0 && b[i - 1][j - 1] == 0) {
+				x = i;
+				y = j;
+				colornum = a[i - 1][j - 1];
+				tolnum++;
+				printf("(%d, %d): %d\n", x, y, colornum);
+			}
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		if (b[m - 1][i] == 0) {
+			x = m;
+			y = i + 1;
+			colornum = a[m - 1][i];
+			tolnum++;
+		}
+	}
+	for (int i = 0; i < m - 1; i++) {
+		if (b[i][n - 1] == 0) {
+			x = i + 1;
+			y = n;
+			colornum = a[i][n - 1];
+			tolnum++;
+		}
+	}
+	if (tolnum == 0)
+		printf("Not Exist\n");
+	else if (tolnum > 1)
+		printf("Not Unique\n");
+	else if (tolnum == 1) {
+		printf("(%d, %d): %d\n", x, y, colornum);
+	}
+	printf("(%d, %d): %d\n", x, y, tolnum);
+	return 0;
+}

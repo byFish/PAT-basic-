@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int cmpup(const void *a, const void *b) {
+	return *(char*)b - *(char*)a;
+}
+int cmpdown(const void *a, const void *b) {
+	return *(char*)a - *(char*)b;
+}
+
+
+int main() {
+	char a[5] = { 0 }, b[5] = {0};
+	int sum1, sum2, sum3;
+	scanf("%s", a);
+	
+	if (a[0] == a[1] && a[1] == a[2] && a[1] == a[3]) {
+		printf("%s - %s = 0000\n", a, a);
+		return 0;
+	}
+	while (1) {
+		strcpy(b, a);
+		qsort(a, 4, sizeof(char), cmpup);
+		sum1 = atof(a);
+		qsort(b, 4, sizeof(char), cmpdown);
+		sum2 = atof(b);
+		sum3 = sum1 - sum2;
+		if(sum2 != 0)//不知道为什么出现了sum2在第一次的时候会等于0的情况
+			printf("%04d - %04d = %04d\n", sum1, sum2, sum3);
+		if (sum3 == 6174)
+			break;
+		else {
+			if (sum3 < 10)
+				sum3 *= 1000;
+			else if (sum3 < 100)
+				sum3 *= 100;
+			else if (sum3 < 1000)
+				sum3 *= 10;
+			//itoa(sum3, a, 10);数字转字符串(pat中无法使用)
+			sprintf(a, "%d", sum3);
+		}
+	}
+	return 0;
+}

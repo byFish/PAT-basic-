@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n, m, max = -1, maxnum = 100004;
+	int min = -1, minnum;
+	int k = 1;//是否第一个输出
+	int a[100005], b[100005] = { 0 };
+	scanf("%d", &n);
+	m = n;
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &a[i]);
+		if (i == 0) {
+			max = a[i];
+			maxnum = 0;
+		}
+		else if (a[i] > max) {
+			max = a[i];
+			maxnum = i;		
+		}
+		else {
+			if (b[maxnum] == 0) {
+				b[maxnum] = 1;
+				m--;
+			}
+			b[i] = 1;
+			m--;
+		}
+	}
+	for (int i = n -1; i >= 0; i--) {
+		if (i == n -1) {
+			min = a[i];
+			minnum = i;
+		}
+		else if (a[i] < min) {
+			min = a[i];
+			minnum = i;
+		}
+		else {
+			if (b[minnum] == 0) {
+				b[minnum] = 1;
+				m--;
+			}
+			if (b[i] == 0) {
+				b[i] = 1;
+				m--;
+			}
+		}
+	}
+	printf("%d\n", m);
+	for (int i = 0; i < n; i++) {//可能出现 4 5 1 2 3之类的数列
+		if (b[i] == 0) {
+			if (k == 0)
+				printf(" ");
+			printf("%d", a[i]);
+			k = 0;
+		}
+	}
+	printf("\n");
+	return 0;
+}

@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	char a[10];
+	int n, j = 0;
+	double m, sum = 0, count = 0;
+	scanf("%d", &n);
+	getchar();
+	for (int i = 0; i < n; i++) {
+		int isf = 0, ispot = 0, iswrongnum = 0, afterpot = 0;
+		while (1) {
+			scanf("%c", &a[j]);
+			if (a[j] == '\n' || a[j] == ' ') {
+				a[j] = '\0';
+				j = 0;
+				break;
+			}
+			else if (a[j] == '-' && j == 0) {//当且仅当j为1，a【j】为-可行
+
+			}
+			else if (a[j] == '.') {
+				ispot++;
+			}
+			else if (a[j] < '0' || a[j] > '9') {
+				iswrongnum = 1;
+			}
+			if (ispot == 1) {
+				afterpot++;
+			}
+			j++;
+		}
+		if (iswrongnum == 0 && ispot < 2 && afterpot < 4 ) {//&& (ispot != 1 || afterpot > 1) 点结尾居然是正确的。。。
+			m = atof(a);
+			if (m > 1000 || m < -1000) {
+				printf("ERROR: %s is not a legal number\n", a);
+			}
+			else {
+				sum += m;
+				count += 1;
+			}
+		}
+		else {
+			printf("ERROR: %s is not a legal number\n", a);
+		}
+	}
+	if (count == 0) {
+		printf("The average of 0 numbers is Undefined\n");
+	}
+	else if (count == 1) {
+		printf("The average of 1 number is %.2lf\n", sum);
+	}
+	else {
+		printf("The average of %.0lf numbers is %.2lf\n", count, sum / count);
+	}
+	return 0;
+}

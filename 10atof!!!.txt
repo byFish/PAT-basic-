@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <stdlib.h> //atof
+
+int main() {
+	char a[1005], b;
+	int i = 0, j = 0;
+	int q[2005] = { 0 };
+	while (1) {
+		scanf("%c", &b);
+		if (b == '\n') {
+			a[i] = '\0';
+			q[j] = atof(a);
+			j++;
+			break;
+		}
+		else if (b == ' ') {
+			a[i] = '\0';
+			q[j] = atof(a);//×Ö·û´®×ªÊý×Ö
+			j++;
+			i = 0;
+			continue;
+		}
+		a[i] = b;
+		i++;
+	}
+	if (j == 2 && q[1] == 0) {
+		printf("0 0\n");
+		return 0;
+	}
+	if (q[j - 1] == 0) {
+		j -= 2;
+	}
+	for (int k = 0; k < j; k++) {
+		if (k % 2 == 0) {
+			q[k] *= q[k + 1];
+		}
+		else
+			q[k]--;
+		printf("%d", q[k]);
+		if (k == j - 1) {
+			printf("\n");			
+		}
+		else
+			printf(" ");
+	}
+	
+	return 0;
+}

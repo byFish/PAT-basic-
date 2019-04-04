@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+
+
+int main() {
+	int usefulnum[10] = {0};
+	char a[10005];
+	for (int i = 0;; i++) {
+		scanf("%c", &a[i]);
+		if (a[i] == '\n') {
+			a[i] = '\0';
+			break;
+		}
+		switch (a[i])
+		{
+		case 'P':
+			usefulnum[0]++;
+			break;
+		case 'A':
+			usefulnum[1]++;
+			break;
+		case 'T':
+			usefulnum[2]++;
+			break;
+		case 'e':
+			usefulnum[3]++;
+			break;
+		case 's':
+			usefulnum[4]++;
+			break;
+		case 't':
+			usefulnum[5]++;
+			break;
+		}
+	}
+	while (usefulnum[0] != 0 || usefulnum[1] != 0 || usefulnum[2] != 0 || usefulnum[3] != 0 || usefulnum[4] != 0 || usefulnum[5] != 0) {
+		if (usefulnum[0] != 0) {
+			printf("P");
+			usefulnum[0]--;
+		}
+		if (usefulnum[1] != 0) {
+			printf("A");
+			usefulnum[1]--;
+		}
+		if (usefulnum[2] != 0) {
+			printf("T");
+			usefulnum[2]--;
+		}
+		if (usefulnum[3] != 0) {
+			printf("e");
+			usefulnum[3]--;
+		}
+		if (usefulnum[4] != 0) {
+			printf("s");
+			usefulnum[4]--;
+		}
+		if (usefulnum[5] != 0) {
+			printf("t");
+			usefulnum[5]--;
+		}
+	}
+	printf("\n");
+	return 0;
+}

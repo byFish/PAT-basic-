@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+	char a[15], da, b[15], db;
+	scanf("%s %c%s %c", a, &da, b, &db);
+	int ai = 0, bi = 0;//dµÄÊıÁ¿
+	int asum = 0, bsum = 0, csum = 0;
+	for (int i = 0; i < strlen(a); i++) {
+		if (a[i] == da) {			
+			asum += (da - '0') * pow(10, ai);
+			ai++;
+		}
+	}
+	for (int i = 0; i < strlen(b); i++) {
+		if (b[i] == db) {			
+			bsum += (db - '0') * pow(10, bi);
+			bi++;
+		}
+	}
+	csum = asum + bsum;
+	printf("%d\n", csum);
+	return 0;
+}

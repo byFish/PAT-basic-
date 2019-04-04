@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n;
+	double max = 0, a, b, c = 0;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%lf%lf", &a, &b);
+		//c = pow(a, 2) - pow(b, 2) + 2 * a*b; 是我想太多。。。
+		c = pow(a, 2) + pow(b, 2);
+		if (c > max) {
+			max = c;
+		}
+	}
+	max = sqrt(max);
+	printf("%.2lf", max);
+	return 0;
+}

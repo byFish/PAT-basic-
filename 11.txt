@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <math.h>
+
+
+int main() {
+	int n;
+	int a = 0, b = 0, c = 0;
+	scanf("%d", &n);
+	for (int i = 1; i <= n; i++) {
+		scanf("%d%d%d", &a, &b, &c);
+		if (c - a < b) {
+			printf("Case #%d: true\n", i);
+		}
+		else
+			printf("Case #%d: false\n", i);
+	}
+	return 0;
+}

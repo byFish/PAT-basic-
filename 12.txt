@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <math.h>
+
+
+int main() {
+	int n, m;
+	int a1 = 0, a2 = 0, a3 = 0, a5 = 0;
+	double a4 = 0;
+	int b2 = 1, b4 = 0;//¸öÊý
+	int ish1 = 0,ish2 = 0,ish3 = 0,ish4 = 0, ish5 = 0;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++){
+		scanf("%d", &m);
+		switch (m%5)
+		{
+		case 0:
+			
+			if (m % 2 == 0) {
+				a1 += m;
+				ish1 = 1;
+			}
+			break;
+		case 1:
+			ish2 = 1;
+			if (b2 % 2 == 1) {
+				a2 += m;
+			}
+			else {
+				a2 -= m;
+			}
+			b2++;
+			break;
+		case 2:
+			ish3 = 1;
+			a3++;
+			break;
+		case 3:
+			ish4 = 1;
+			a4 += m;
+			b4++;
+			break;
+		case 4:
+			ish5 = 1;
+			if (m > a5)
+				a5 = m;
+			break;
+		default:
+			break;
+		}
+
+	}
+	if (ish1 == 1)
+			printf("%d ", a1);
+		else
+			printf("N ");
+		if (ish2 == 1)
+			printf("%d ", a2);
+		else
+			printf("N ");
+		if (ish3 == 1)
+			printf("%d ", a3);
+		else
+			printf("N ");
+		if (ish4 == 1)
+			printf("%.1lf ", a4/b4);
+		else
+			printf("N ");
+		if (ish5 == 1)
+			printf("%d\n", a5);
+		else
+			printf("N\n");
+	return 0;
+}

@@ -1,0 +1,163 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n,m = 0;
+	scanf("%d", &n);
+	
+	char a[10], b[15][5] = { "tret", "jan", "feb", "mar", "apr", "may", "jun", "jly", "aug", "sep", "oct", "nov", "dec" };
+	char d[10], c[15][5] = { "tret", "tam", "hel", "maa", "huh", "tou", "kes", "hei", "elo", "syy", "lok", "mer", "jou" };
+	getchar();
+	for (int j = 0; j < n; j++) {
+		int genum = 0, shinum = 0;
+		for (int i = 0;; i++) {
+			scanf("%c", &a[i]);
+			if (a[i] == '\n') {
+				a[i] = '\0';
+				break;
+			}
+		}
+		
+		if (a[0] >= '0' && a[0] <= '9') {
+			m = atof(a);
+			shinum = m / 13;
+			genum = m % 13;
+			switch (shinum)
+			{
+			case 1:
+				printf("tam");
+				break;
+			case 2:
+				printf("hel");
+				break;
+			case 3:
+				printf("maa");
+				break;
+			case 4:
+				printf("huh");
+				break;
+			case 5:
+				printf("tou");
+				break;
+			case 6:
+				printf("kes");
+				break;
+			case 7:
+				printf("hei");
+				break;
+			case 8:
+				printf("elo");
+				break;
+			case 9:
+				printf("syy");
+				break;
+			case 10:
+				printf("lok");
+				break;
+			case 11:
+				printf("mer");
+				break;
+			case 12:
+				printf("jou");
+				break;
+			default:
+				break;
+			}
+			if (shinum != 0 && genum != 0) {
+				printf(" ");
+			}
+			switch (genum)
+			{
+			case 1:
+				printf("jan");
+				break;
+			case 2:
+				printf("feb");
+				break;
+			case 3:
+				printf("mar");
+				break;
+			case 4:
+				printf("apr");
+				break;
+			case 5:
+				printf("may");
+				break;
+			case 6:
+				printf("jun");
+				break;
+			case 7:
+				printf("jly");
+				break;
+			case 8:
+				printf("aug");
+				break;
+			case 9:
+				printf("sep");
+				break;
+			case 10:
+				printf("oct");
+				break;
+			case 11:
+				printf("nov");
+				break;
+			case 12:
+				printf("dec");
+				break;
+			default:
+				break;
+			}			
+			if (shinum == 0 && genum == 0)
+				printf("tret");
+			printf("\n");
+		}
+		else {
+			int h = 0;
+			if (strlen(a) > 5) {
+				for (int i = 0;; i++) {
+					if (a[i] == ' ') {
+						d[h] = '\0';
+						h = 0;
+						for (int k = 1; k < 13; k++) {
+							if (strcmp(d, c[k]) == 0) {
+								shinum = k;
+								break;
+							}
+						}
+						continue;
+					}
+					else if (a[i] == '\0') {
+						d[h] = '\0';
+						for (int k = 1; k < 13; k++) {
+							if (strcmp(d, b[k]) == 0) {
+								genum = k;
+								
+								break;
+							}
+						}
+						break;
+					}
+					d[h] = a[i];
+					h++;
+				}
+			}
+			else {
+				for (int k = 1; k < 13; k++) {
+					if (strcmp(a, b[k]) == 0) {
+						genum = k;
+						break;
+					}
+					if (strcmp(a, c[k]) == 0) {
+						shinum = k;
+						break;
+					}
+				}
+			}
+			printf("%d\n", shinum * 13 + genum);
+		}
+	}
+	return 0;
+}

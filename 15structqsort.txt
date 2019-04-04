@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+
+
+struct Stu
+{
+	int num;
+	int dscore;
+	int cscore;
+	int ascore;
+};
+
+int cmp(const void *a, const void *b) {
+	Stu p1 = *(Stu*)a;
+	Stu p2 = *(Stu*)b;
+	if (p1.ascore != p2.ascore) {
+		return p2.ascore - p1.ascore;
+	}
+	else if(p1.dscore != p2.dscore) {
+		return p2.dscore - p1.dscore;
+	}
+	else {
+		return p1.num - p2.num;
+	}
+}
+
+int main() {
+	struct Stu stuboth[10005], stud[10005], studc[10005], stuc[10005], stu;
+	int jb = 0, jd = 0, jdc = 0, jc = 0;
+	int n, l, h;
+	scanf("%d%d%d", &n, &l, &h);
+	for (int i = 0; i < n; i++) {
+		scanf("%d%d%d", &stu.num, &stu.dscore, &stu.cscore);
+		stu.ascore = stu.dscore + stu.cscore;
+		if (stu.cscore >= h && stu.dscore >= h) {
+			stuboth[jb] = stu;
+			jb++;
+		}
+		else if (stu.cscore >= l && stu.dscore >= h) {
+			stud[jd] = stu;
+			jd++;
+		}
+		else if (stu.cscore >= l && stu.dscore >= l && stu.dscore >= stu.cscore) {
+			studc[jdc] = stu;
+			jdc++;
+		}
+		else if (stu.cscore >= l && stu.dscore >= l) {
+			stuc[jc] = stu;
+			jc++;
+		}		
+	}
+	qsort(stuboth, jb,sizeof( struct Stu), cmp);
+	qsort(stud, jd, sizeof(struct Stu), cmp);
+	qsort(studc, jdc, sizeof(struct Stu), cmp);
+	qsort(stuc, jc, sizeof(struct Stu), cmp);
+	printf("%d\n", jb + jd + jdc + jc);
+	for (int i = 0; i < jb; i++) {
+		printf("%d %d %d\n", stuboth[i].num, stuboth[i].dscore, stuboth[i].cscore);
+	}
+	for (int i = 0; i < jd; i++) {
+		printf("%d %d %d\n", stud[i].num, stud[i].dscore, stud[i].cscore);
+	}
+	for (int i = 0; i < jdc; i++) {
+		printf("%d %d %d\n", studc[i].num, studc[i].dscore, studc[i].cscore);
+	}
+	for (int i = 0; i < jc; i++) {
+		printf("%d %d %d\n", stuc[i].num, stuc[i].dscore, stuc[i].cscore);
+	}
+	return 0;
+}

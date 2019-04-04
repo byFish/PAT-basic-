@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+struct Que
+{
+	int score;
+	int isright;
+}ques[100];
+
+int main() {
+	int n, m, sum, stuchose;
+	scanf("%d%d", &n, &m);
+	for (int i = 0; i < m; i++) {
+		scanf("%d", &ques[i].score);
+	}
+	for (int i = 0; i < m; i++) {
+		scanf("%d", &ques[i].isright);
+	}
+	for (int i = 0; i < n; i++ ) {
+		sum = 0;
+		for (int j = 0; j < m; j++) {
+			scanf("%d", &stuchose);
+			if (stuchose == ques[j].isright)
+				sum += ques[j].score;
+		}
+		printf("%d\n", sum);
+	}
+	return 0;
+}

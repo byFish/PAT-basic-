@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+
+int main() {
+	int n;
+	char name[10], oldname[10], youthname[10];
+	int year, month, day, nicedate = 0;
+	int yyear = 2015, ymonth = 13, yday = 33, oldyear = 0, oldmonth = 0, oldday = 0;//最大与最小出生日期
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%s%d/%d/%d", name, &year, &month, &day);
+		if (year > 2014 || year < 1814) {
+			continue;
+		}
+		else if (year == 2014) {
+			if (month > 9 || (month == 9 && day > 6))
+				continue;
+		}
+		else if (year == 1814) {
+			if (month < 9 || (month == 9 && day < 6))
+				continue;
+		}
+		if (year > oldyear || (year == oldyear && month > oldmonth) || (year == oldyear && month == oldmonth && day > oldday)) {
+			oldyear = year;
+			oldmonth = month;
+			oldday = day;
+			strcpy(oldname, name);
+			
+		}
+		if (year < yyear || (year == yyear && month < ymonth) || (year == yyear && month == ymonth && day < yday)) {
+			yyear = year;
+			ymonth = month;
+			yday = day;
+			strcpy(youthname, name);
+		}
+		nicedate++;
+	}
+	if (nicedate == 0){//注意当有效人数为零时只需要输出0
+		printf("0\n");
+		return 0;
+	}
+	printf("%d %s %s\n", nicedate, youthname, oldname);
+	return 0;
+}

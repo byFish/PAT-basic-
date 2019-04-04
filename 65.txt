@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int a[100005] = { -1 }, b[100005] = { 0 };//注意可能有00000号的人
+	int n,m,k1, k2,s, singlenum = 0;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d%d", &k1, &k2);
+		a[k1] = k2;
+		a[k2] = k1;
+	}
+	scanf("%d", &m);
+	for (int i = 0; i < m; i++) {
+		scanf("%d", &s);
+		b[s] = 1;
+		if (a[s] != -1 && b[a[s]] == 1) {
+			b[a[s]] = 0;
+			b[s] = 0;
+			singlenum--;
+		}
+		else
+			singlenum++;
+	}
+	printf("%d\n", singlenum);
+	if (singlenum == 0) {//注意可能无单身狗的情况，且不用打换行符
+		return 0;
+	}
+	for (int i = 0;; i++) {
+		if (b[i] == 1) {
+			printf("%05d", i);
+			singlenum--;
+			if (singlenum > 0)
+				printf(" ");
+			else
+				break;
+		}
+	}
+	printf("\n");
+	return 0;
+}

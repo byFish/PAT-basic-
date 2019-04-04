@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n, m, k, h;
+	int wasprintname = 0;
+	int wrongstunum = 0, wrongthingnum = 0;
+	char name[5];
+	int thing[10005] = { 0 };
+	scanf("%d%d", &n, &m);
+	for (int i = 0; i < m; i++) {
+		scanf("%d", &k);
+		thing[k]++;
+	}
+	for (int i = 0; i < n; i++) {
+		wasprintname = 0;
+		scanf("%s", name);
+		scanf("%d", &h);
+		for (int j = 0; j < h; j++) {
+			scanf("%d", &k);
+			if (thing[k] != 0) {
+				if (wasprintname == 0) {
+					wasprintname = 1;
+					wrongstunum++;
+					printf("%s:", name);
+				}
+				wrongthingnum++;
+				printf(" %04d", k);
+			}			
+		}
+		if(wasprintname)
+		 printf("\n");
+	}
+	printf("%d %d\n", wrongstunum, wrongthingnum);
+	return 0;
+}

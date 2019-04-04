@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Moon
+{
+	double c, a, b;
+}moon[1100];
+
+
+int cmp(const void *a, const void *b) {//不知道为什么无法这样使用
+	Moon p1 = *(Moon*)a;
+	Moon p2 = *(Moon*)b;
+	return p2.c - p1.c;
+}
+
+int cmp2(const void *a, const void *b) {
+	Moon p1 = *(Moon*)a;
+	Moon p2 = *(Moon*)b;
+	int res;
+
+	if (p1.c > p2.c) {
+		res = -1;
+	}
+	else if (p1.c < p2.c) {
+		res = 1;
+	}
+	else {
+		res = 0;
+	}
+
+	return res;
+}
+
+int main() {
+	int n;
+	double sum = 0, d;
+	scanf("%d%lf", &n, &d);
+	for (int i = 0; i < n; i++) {
+		scanf("%lf", &moon[i].a);
+	}
+	for (int i = 0; i < n; i++) {
+		scanf("%lf", &moon[i].b);
+		moon[i].c = moon[i].b / moon[i].a;
+	}
+	qsort(moon, n, sizeof(struct Moon), cmp2);
+	for (int i = 0; i < n; i++) {
+		if (d >= moon[i].a) {
+			sum += moon[i].b;
+			d -= moon[i].a;
+		}
+		else {
+			sum += moon[i].c * d;
+			d = 0;
+		}
+		if (d <= 0) {
+			break;
+		}
+	}
+	printf("%.2lf\n",sum);
+	return 0;
+}

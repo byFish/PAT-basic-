@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+struct Stu
+{
+	char name[30];
+	int gb = -1, gz = -1, gw = -1, gg = -1;
+}stus[10005];
+
+
+int main() {
+	int p, m, n;
+	char name[30];
+	int score;
+	int j = 0;
+	scanf("%d%d%d", &p, &m, &n);
+	for (int i = 0; i < p; i++) {
+		scanf("%s %d", name, &score);
+		if (score >= 200) {
+			strcmp(stus[j].name, name);
+			stus[j].gb = score;
+			j++;
+		}
+	}
+	for (int i = 0; j < m; j++) {
+
+	}
+	return 0;
+}

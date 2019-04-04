@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <math.h>
+
+
+int main() {
+	int n, lastnum = 2, sum = 0;//lastnum为上一个素数
+	int isac = 0;//是否整除
+	scanf("%d", &n);
+	for (int i = 3; i <= n; i++) {
+		isac = 0;
+		for (int j = 2; j <= sqrt(i); j++) {
+			if (i%j == 0) {
+				isac = 1;
+				break;
+			}
+		}
+		if (isac == 0) {
+			if (i - lastnum == 2)
+				sum++;
+			lastnum = i;
+		}
+	}
+	printf("%d\n", sum);
+	return 0;
+}

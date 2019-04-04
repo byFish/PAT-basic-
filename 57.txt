@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int sum = 0, znum = 0, onum = 0;
+	char a[100005];
+	for(int i = 0;;i++) {
+		scanf("%c", &a[i]);
+		if (a[i] == '\n') {
+			a[i] = '\0';
+			break;
+		}
+		else if (a[i] >= 'A' && a[i] <= 'Z') {
+			sum += (a[i] - 'A') + 1;
+		}
+		else if (a[i] >= 'a' && a[i] <= 'z') {
+			sum += (a[i] - 'a') + 1;
+		}
+	}
+	if (sum == 0) {//注意sum可能为零
+		printf("0 0\n");
+		return 0;
+	}
+	while (sum != 1) {
+		if (sum % 2 == 0)
+			znum++;
+		else
+			onum++;
+		sum = sum / 2;
+	}
+	onum++;
+	printf("%d %d\n", znum, onum);
+	return 0;
+}

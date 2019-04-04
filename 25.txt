@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+struct Pot
+{
+	int  data, next, pre;
+}pot[100005];
+
+int main() {
+	int add0, n, k, add;
+	int preadd = -1;//上一个地址
+	int afterkadd; //记录第k个之后的地址
+	int addtest, g = 0, end =0;//测试是否需要倒转，g为倒转次数
+	scanf("%d%d%d", &add0, &n, &k);
+	if (add0 == -1)
+		printf("-1\n");
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &add);
+		scanf("%d%d", &pot[add].data, &pot[add].next);
+	}
+	addtest = add0;
+	afterkadd = add0;
+	while (1)
+	{
+		add = addtest;
+		for (int i = g*k; i < (g+1)*k - 1; i++) {
+			if (pot[addtest].next == -1) {
+				end = 1;
+				break;
+			}
+			addtest = pot[addtest].next;
+		}
+		if (end == 1)
+			break;
+		addtest = pot[addtest].next;
+		g++;
+		preadd = addtest;
+		if (preadd != -1) {
+			for (int i = (g + 1)*k; i < (g + 2)*k - 1; i++) {
+				if (pot[preadd].next == -1) {
+					preadd = addtest;
+					break;
+				}
+				preadd = pot[preadd].next;
+			}
+		}
+		for (int i = 0; i < k; i++) {
+			pot[add].pre = preadd;
+			if (i == k - 1) {
+				afterkadd = pot[add].next;
+				for (int j = 0; j < k; j++) {
+					printf("%05d %d ", add, pot[add].data);
+					if (pot[add].pre != -1) {
+						printf("%05d\n", pot[add].pre);
+					}
+					else {
+						printf("-1\n");
+						return 0;
+					}
+					add = pot[add].pre;
+				}
+				break;
+			}
+			preadd = add;
+			add = pot[add].next;
+		}
+	}
+	for (int i = k*g; i < n; i++) {
+		add = afterkadd;
+		afterkadd = pot[add].next;
+		printf("%05d %d ", add, pot[add].data);
+		if (pot[add].next != -1) {
+			printf("%05d\n", pot[add].next);
+		}
+		else {
+			printf("-1\n");
+			break;//为-1的时候结束输入即使还有点
+		}
+	}
+	return 0;
+}

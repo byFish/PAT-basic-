@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n, m, d, maycount = 0, mustcount = 0, countday = 0;
+	double e, f;
+	scanf("%d%lf%d", &n, &e, &d);
+	for (int i = 0; i < n; i++) {
+		countday = 0;
+		scanf("%d", &m);
+		for (int j = 0; j < m; j++) {
+			scanf("%lf", &f);
+			if (f < e)
+				countday++;
+		}
+		if (m > d && countday > m / 2) {//注意是观察期大于d，且满足没电日期超过一半
+			mustcount++;
+		}
+		else if(countday > m/2)
+			maycount++;
+	}
+	double nn = (double)n;
+	double must = (mustcount / nn) * 100, may = (maycount/nn)*100;
+	printf("%.1lf%% %.1lf%%\n", may, must);
+	return 0;
+}

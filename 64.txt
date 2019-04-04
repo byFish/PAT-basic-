@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n, i = 0, j = 0, sum = 0, num[10005] = {0}, newnum = 0, k = 0;
+	char a[5];
+	scanf("%d", &n);
+	getchar();
+	while (1) {
+		scanf("%c", &a[i]);
+		if (a[i] == ' ' || a[i] == '\n') {
+			if (num[sum] == 0) {
+				newnum++;
+				k++;
+			}
+			num[sum]++;
+			sum = 0;
+			if (a[i] == '\n')
+				break;
+			a[i] = '\0';
+			i = 0;
+		}
+		else {
+			sum += a[i] - '0';
+			i++;
+		}
+	}
+	j = 0;
+	printf("%d\n", newnum);
+	for (int i = 1; j < k; i++) {
+		if (num[i] != 0) {
+			printf("%d", i);
+			j++;
+			if (j == k) {
+				printf("\n");
+			}
+			else
+				printf(" ");
+		}
+	}
+	return 0;
+}

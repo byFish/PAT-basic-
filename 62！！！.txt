@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+int main() {
+	int n1, n2, m1, m2, k, z1, z2, z3 = 0, i, q = 0,j;
+	int a1, a2, a3;
+	scanf("%d/%d %d/%d %d", &n1, &m1, &n2, &m2, &k);
+	int n3 = n1*m2*k;
+	int n4 = n2*m1*k;
+	int m3 = m1*m2*k;
+	if (n3 > n4) {
+		z1 = n3;
+		z2 = n4;
+	}
+	else {
+		z1 = n4;
+		z2 = n3;
+	}
+	if (z1 % (m1*m2) == 0) {
+		j = z1 / (m1*m2) - 1;
+	}
+	else
+		j = z1 / (m1*m2);
+	if (z2 % (m1*m2) == 0)//测试点2出错，查询得知是边界数不能使用，但是即使我改了，依然出错！！！
+		i = z2 / (m1 *m2);
+	else
+		i = z2 / (m1*m2) + 1;
+	while (i <= j) {
+		a1 = i;
+		a2 = k;
+		while (a1) {
+			a3 = a2 % a1;
+			a2 = a1;
+			a1 = a3;
+		}
+		if (a2 != 1) {
+			i++;
+			continue;
+		}
+		if (q == 1) {
+			printf(" ");
+		}
+		printf("%d/%d", i, k);
+		i++;
+		q = 1;
+	}
+	return 0;
+}

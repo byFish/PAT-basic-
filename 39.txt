@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+
+int main() {
+	int count = 0;
+	int miscount = 0;//È±ÉÙµÄÖé×Ó
+	char a[1005], b[1005], c[200] = {0};
+	for(int i = 0;;i++) {
+		scanf("%c", &a[i]);
+		if (a[i] == '\n'){
+			a[i] = '\0';
+			break;
+		}
+		c[a[i]]++;
+	}
+	for (int i = 0;; i++) {
+		scanf("%c", &b[i]);
+		if (b[i] == '\n') {
+			b[i] = '\0';
+			break;
+		}
+		if (c[b[i]] > 0)
+			c[b[i]]--;
+		else
+			miscount++;
+	}
+	if (miscount == 0) {
+		printf("Yes %d\n", strlen(a) - strlen(b));
+	}
+	else {
+		printf("No %d\n", miscount);
+	}
+	return 0;
+}

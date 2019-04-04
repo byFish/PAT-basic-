@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int cmp(const void *a, const void *b) {
+	return *(int*)b - *(int*)a;
+}
+
+int main() {
+	int p, num[100005], n, max = 0;
+	int pre = 0;
+	scanf("%d%d", &n, &p);
+	pre = n - 1;
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &num[i]);
+	}
+
+	qsort(num, n, sizeof(int), cmp);
+	//for (int i = 0; i < n - max; i++) { 此算法超时，改为两个数同时从一边循环
+	//	for (int j = n - 1; j > max + i; j--) {
+	//		if (num[j] > num[i] / p) {
+	//			max = j - i + 1;
+	//			break;
+	//		}
+	//		else if (num[j] == num[i] / p && num[i] % p == 0) {
+	//			max = j - i + 1;
+	//			break;
+	//		}
+	//	}
+	//}
+	for (int i = n - 1; i >= max; i--) {
+		if (num[i] * p < 0) {//判断是否超出int范围，不知道为什么要。。。
+			if (i >= max)
+				max = i + 1;
+			break;
+		}
+		for (int j = pre - 1; j >= 0; j--) {
+			if (i - j + 1 >= max) {
+				if (num[i] < num[j] / p) {
+					max = i - j;
+					pre = j;
+					break;
+				}
+				else if (num[i] == num[j] / p && num[j] % p != 0) {
+					max = i - j;
+					pre = j;
+					break;
+				}
+				if (i == n - 1 && j == 0) {
+					max = n;
+				}
+			}
+		}
+	}
+	if (max == 0) {
+		printf("1\n");
+		return 0;
+	}
+	printf("%d\n", max);
+	return 0;
+}

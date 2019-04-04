@@ -1,0 +1,136 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+void toeasy(long &z1,long &m1,long &g1, long &zf1) {//简化分数
+	long minzm1, a1,a2,a3;
+	if (z1 < 0 && m1 < 0) { //注意分子分母都为负数
+		z1 = -z1;
+		m1 = -m1;
+		zf1 = 0;
+	}
+	else if (z1 < 0) {
+		z1 = -z1;
+		zf1 = 1;
+	}
+	else if (m1 < 0) {
+		m1 = -m1;
+		zf1 = 1;
+	}
+	if (z1 == 0) {
+		g1 = z1 / m1;
+		z1 = 0;
+	}
+	else if (z1 % m1 == 0) {
+		g1 = z1 / m1;
+		z1 = 0;
+	}
+	else if(m1 % z1 == 0) {
+		m1 = m1 / z1;
+		z1 = 1;
+	}
+	else {
+		/*if (z1 > m1)
+			minzm1 = m1;
+		else
+			minzm1 = z1;
+		for (int i = minzm1 / 2; i > 1; i--) { 超时
+			if (z1%i == 0 && m1 %i == 0) {
+				z1 /= i;
+				m1 /= i;
+				break;
+			}
+		}*/
+		a1 = z1;
+		a2 = m1;
+		while (a2) {//辗转相除法
+			a3 = a1 % a2;
+			a1 = a2;
+			a2 = a3;
+		}
+		z1 /= a1;
+		m1 /= a1;
+	}
+	
+
+	if (z1 > m1) {
+		g1 += z1 / m1;
+		z1 -= (g1 * m1);
+	}
+}
+
+void printff(long z1, long m1, long g1, long zf1) {//打印分数
+	if (zf1 == 1) {
+		printf("(-");
+	}
+	if (g1 == 0 && z1 == 0) {
+		printf("0");
+	}
+	else if (g1 == 0) {
+		printf("%ld/%ld", z1, m1);
+	}
+	else if (z1 == 0) {
+		printf("%ld", g1);
+	}
+	else {
+		printf("%ld %ld/%ld", g1, z1, m1);
+	}
+	if (zf1 == 1) {
+		printf(")");
+	}
+}
+
+int main() {
+	long z1, z2, m1, m2, g1 = 0, g2 = 0;
+	long z3, m3, z4, m4, z5, m5, z6, m6,g3 = 0,g4 = 0, g5 = 0, g6 = 0;//结果分数
+	long zf1 = 0, zf2 = 0, zf3 = 0, zf4 = 0, zf5 = 0, zf6 = 0;//分数的符号
+	long isinf = 0;
+	scanf("%ld/%ld %ld/%ld", &z1, &m1, &z2, &m2);
+	z3 = (z1 *m2) + (z2 *m1);
+	m3 = (m1 * m2);//相乘后可能超出范围
+	z4 = (z1 *m2) - (z2 *m1);
+	m4 = (m1 * m2);
+	z5 = (z1 * z2);
+	m5 = (m1 * m2);
+	z6 = (z1 * m2);
+	m6 = (m1 * z2);
+	toeasy(z1, m1, g1, zf1);
+	toeasy(z2, m2, g2, zf2);
+	toeasy(z3, m3, g3, zf3);
+	toeasy(z4, m4, g4, zf4);
+	toeasy(z5, m5, g5, zf5);
+	if (m6 == 0) {
+		isinf = 1;
+	}
+	else
+		toeasy(z6, m6, g6, zf6);
+	printff(z1, m1, g1, zf1);
+	printf(" + ");
+	printff(z2, m2, g2, zf2);
+	printf(" = ");
+	printff(z3, m3, g3, zf3);
+	printf("\n");
+	printff(z1, m1, g1, zf1);
+	printf(" - ");
+	printff(z2, m2, g2, zf2);
+	printf(" = ");
+	printff(z4, m4, g4, zf4);
+	printf("\n");
+	printff(z1, m1, g1, zf1);
+	printf(" * ");
+	printff(z2, m2, g2, zf2);
+	printf(" = ");
+	printff(z5, m5, g5, zf5);
+	printf("\n");
+	printff(z1, m1, g1, zf1);
+	printf(" / ");
+	printff(z2, m2, g2, zf2);
+	printf(" = ");
+	if (isinf == 1)
+		printf("Inf");
+	else
+		printff(z6, m6, g6, zf6);
+	printf("\n");
+
+	return 0;
+}

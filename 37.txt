@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+
+int main() {
+	int g1, s1, k1, g2, s2, k2, g3, s3, k3;
+	scanf("%d.%d.%d %d.%d.%d", &g1, &s1, &k1, &g2, &s2, &k2);
+	g3 = g2 - g1;	
+	s3 = s2 - s1;
+
+	k3 = k2 - k1;
+	if (g3 > 0 && s3 < 0) {
+		s3 += 17;
+		g3--;
+	}
+	else if (g3 < 0 && s3 > 0) {
+		s3 -= 17;
+		g3++;
+	}
+	if (g3 > 0 && k3 < 0) {
+		k3 += 29;
+		if(s3 > 0)
+			s3--;
+		else {
+			g3--;
+			s3 = 16;
+		}
+	}
+	else if (g3 < 0 && k3 > 0) {
+		k3 -= 29;
+		if(s3 < 0)
+			s3++;
+		else {
+			g3++;
+			s3 = -16;
+		}
+	}
+	else if (g3 == 0) {
+		if (s3 < 0 && k3 > 0) {
+			s3++;
+			k3 -= 29;
+		}
+		else if(s3 > 0 && k3 < 0) {
+			s3--;
+			k3 += 29;
+		}
+	}
+	if (g3 < 0 || s3 < 0 || k3 < 0) {
+		printf("-%d.%d.%d", -g3, -s3, -k3);
+	}
+	else
+		printf("%d.%d.%d", g3, s3, k3);
+	return 0;
+}

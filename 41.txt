@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+struct Stu
+{
+	char id[20];
+	int testsite;
+}stu[1005];
+
+int main() {
+	int n;
+	char id0[20];
+	int trysite0, testsite0;
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%s%d%d", id0, &trysite0, &testsite0);
+		strcpy(stu[trysite0].id, id0);
+		stu[trysite0].testsite = testsite0;
+	}
+	scanf("%d", &n);
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &trysite0);
+		printf("%s %d\n", stu[trysite0].id, stu[trysite0].testsite);
+	}
+	return 0;
+}

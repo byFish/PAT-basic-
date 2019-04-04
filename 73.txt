@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+struct Que
+{
+	double score;
+	int chosenum, rightnum;
+	char chose[30];
+	int wrongchose[30] = { 0 };
+}ques[1005];
+
+int main() {
+	int n, m, max = 0;
+	char c;
+	scanf("%d%d", &n, &m);
+	for (int i = 0; i < m; i++) {
+		scanf("%lf%d%d", &ques[i].score, &ques[i].chosenum, &ques[i].rightnum);
+		for (int j = 0; j < ques[i].rightnum; j++) {
+			getchar();
+			scanf("%c", &ques[i].chose[j]);
+		}
+	}
+	getchar();
+	int stuchosenum;
+	
+	for (int i = 0; i < n; i++) {
+		double sum = 0;
+		for (int j = 0; j < m; j++) {
+			getchar();
+			scanf("%d", &stuchosenum);
+			int h = 0, isw = 0, ism = 0;
+			for (int k = 0; k < stuchosenum; k++) {
+				getchar();
+				scanf("%c", &c);
+				if (h >= ques[j].rightnum) {
+					isw = 1;
+					ques[j].wrongchose[c - 'a']++;
+					if (ques[j].wrongchose[c - 'a'] > max)
+						max = ques[j].wrongchose[c - 'a'];
+				}
+				for (; h < ques[j].rightnum; h++) {
+					if (c == ques[j].chose[h]) {
+						h++;
+						break;
+					}
+					if (c > ques[j].chose[h]) {
+						ism = 1;
+						ques[j].wrongchose[ques[j].chose[h] - 'a']++;
+						if (ques[j].wrongchose[ques[j].chose[h] - 'a'] > max)
+							max = ques[j].wrongchose[ques[j].chose[h] - 'a'];
+						if (k == stuchosenum - 1 && h == ques[j].rightnum - 1) {
+							isw = 1;
+							ques[j].wrongchose[c - 'a']++;
+							if (ques[j].wrongchose[c - 'a'] > max)
+								max = ques[j].wrongchose[c - 'a'];
+						}
+					}
+					if (c < ques[j].chose[h]) {
+						isw = 1;
+						ques[j].wrongchose[c - 'a']++;
+						if (ques[j].wrongchose[c - 'a'] > max)
+							max = ques[j].wrongchose[c - 'a'];
+						if (k == stuchosenum - 1) {
+							for (; h < ques[j].rightnum; h++) {
+								ques[j].wrongchose[ques[j].chose[h] - 'a']++;
+								if (ques[j].wrongchose[ques[j].chose[h] - 'a'] > max)
+									max = ques[j].wrongchose[ques[j].chose[h] - 'a'];
+							}
+						}
+						break;
+					}
+				}
+			}
+			getchar();
+			getchar();
+			if (isw == 1) {
+				sum += 0;
+			}
+			else if (ism == 1) {
+				sum += ques[j].score / 2;
+			}
+			else
+				sum += ques[j].score;
+		}
+		printf("%.1lf\n", sum);
+	}
+	if (max == 0) {
+		printf("Too simple\n");
+		return 0;
+	}
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < 30; j++) {
+			if (ques[i].wrongchose[j] == max)
+				printf("%d %d-%c\n", max, i + 1, j + 'a');
+		}
+	}
+	return 0;
+}
+//不知道为什么最后一个测试点出错。。。

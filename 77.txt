@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+
+
+int main() {
+	int n, m;
+	double teacher, stus[100];
+	scanf("%d%d", &n, &m);
+	for (int i = 0; i < n; i++) {
+		double max = -1, min = 200, sum = 0;
+		double count = 0;
+		scanf("%lf", &teacher);
+		for (int j = 0; j < n - 1; j++) {
+			scanf("%lf", &stus[j]);
+			if (stus[j] >= 0 && stus[j] <= m) {
+				if (stus[j] > max)
+					max = stus[j];
+				if (stus[j] < min)
+					min = stus[j];
+				count += 1;
+				sum += stus[j];
+			}
+		}
+		sum -= min;
+		sum -= max;
+		sum = sum / (count - 2);
+		sum = (sum + teacher) / 2 + 0.5;//不知道为什么一旦使用输出.0lf就全错，但是转换成d就行。。。
+		printf("%d\n", (int)sum);
+	}
+	return 0;
+}
